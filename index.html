@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Workflow</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sage:#5a7a6a;--sage-light:#e8f0ec;--sage-mid:#c2d4ca;
+  --warm:#f7f4f0;--warm-dark:#ede8e1;
+  --text:#1e2820;--text-mid:#4a5c52;--text-muted:#8a9e94;
+  --white:#ffffff;
+  --red:#c0392b;--red-light:#fdf0ef;
+  --blue:#1a6fa8;--blue-light:#e8f4fd;
+  --purple:#6b4f9e;--purple-light:#f3f0fa;
+  --green:#2e7d52;--green-light:#eaf5ef;
+  --amber:#b8860b;
+  --shadow:0 1px 3px rgba(30,40,32,.08),0 4px 16px rgba(30,40,32,.04);
+  --shadow-hover:0 4px 12px rgba(30,40,32,.12),0 8px 24px rgba(30,40,32,.06);
+  --radius:10px;--radius-lg:16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Login screen ── */
+#login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:2rem;animation:fadeIn .5s ease}
+.login-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--warm-dark);box-shadow:var(--shadow);padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center}
+.login-icon{width:56px;height:56px;background:var(--sage);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.login-icon svg{width:28px;height:28px;fill:white}
+.login-card h2{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin-bottom:8px}
+.login-card p{font-size:13px;color:var(--text-muted);margin-bottom:1.75rem;line-height:1.6}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 16px;border-radius:8px;border:1px solid var(--warm-dark);background:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+.google-btn:hover{background:var(--warm);box-shadow:var(--shadow-hover)}
+.google-btn svg{width:18px;height:18px;flex-shrink:0}
+.login-note{font-size:11px;color:var(--text-muted);text-align:center;max-width:320px}
+
+/* ── App ── */
+.app{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
+header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;animation:fadeIn .4s ease}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-icon{width:42px;height:42px;background:var(--sage);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.brand-icon svg{width:22px;height:22px;fill:white}
+.brand-text h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:var(--text)}
+.brand-text p{font-size:12px;color:var(--text-muted);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ws-links{display:flex;gap:8px;flex-wrap:wrap}
+.ws-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s;border:1px solid transparent}
+.ws-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.ws-btn.cal{background:var(--blue-light);color:var(--blue);border-color:#c5dff2}
+.ws-btn.mail{background:var(--red-light);color:var(--red);border-color:#f5d0cc}
+.ws-btn.drive{background:var(--green-light);color:var(--green);border-color:#c0e0cf}
+.ws-btn.voice{background:var(--purple-light);color:var(--purple);border-color:#d8ccf0}
+.ws-btn svg{width:14px;height:14px;flex-shrink:0}
+.user-chip{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 5px;border-radius:20px;background:var(--white);border:1px solid var(--warm-dark);font-size:12px;color:var(--text-mid)}
+.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.user-avatar-fallback{width:26px;height:26px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:white}
+.signout-btn{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;padding:0;margin-left:4px}
+.signout-btn:hover{color:var(--red)}
+
+.status-bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--warm-dark);margin-bottom:1.5rem;font-size:12px;color:var(--text-muted);animation:fadeIn .4s ease .05s both}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);flex-shrink:0;transition:background .3s}
+.sdot.ok{background:var(--green)}
+.sdot.busy{background:var(--amber);animation:spin .8s linear infinite;border-radius:0;clip-path:polygon(50% 0%,100% 100%,0% 100%)}
+.sdot.err{background:var(--red)}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.75rem;animation:fadeIn .4s ease .1s both}
+.metric{background:var(--white);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;box-shadow:var(--shadow);border:1px solid var(--warm-dark)}
+.metric-label{font-size:11px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+.metric-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--text);line-height:1}
+.metric-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
+
+.sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.sec::before{content:'';display:inline-block;width:3px;height:12px;background:var(--sage);border-radius:2px}
+
+.sessions-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:2rem;animation:fadeIn .4s ease .15s both}
+.sc{background:var(--white);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--warm-dark);box-shadow:var(--shadow)}
+.sc-time{font-size:11px;color:var(--text-muted);margin-bottom:2px;display:flex;align-items:center;gap:5px}
+.sc-client{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+.sc-acts{display:flex;gap:5px}
+.sa{font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--warm-dark);background:var(--warm);color:var(--text-mid);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:3px;transition:all .1s}
+.sa:hover{background:var(--sage-light);border-color:var(--sage-mid);color:var(--sage)}
+.pulse{display:inline-block;width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.pulse.now{background:var(--green);box-shadow:0 0 0 3px rgba(46,125,82,.2)}
+.pulse.next{background:var(--blue)}
+.pulse.done{background:var(--text-muted)}
+
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;animation:fadeIn .4s ease .2s both}
+.col{background:var(--warm-dark);border-radius:var(--radius-lg);padding:14px;min-height:180px}
+.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.col-title{font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--text-mid)}
+.col-badge{font-size:11px;background:var(--white);border-radius:10px;padding:1px 8px;color:var(--text-muted);border:1px solid var(--warm-dark)}
+.add-btn{width:24px;height:24px;border-radius:6px;background:none;border:1px solid var(--sage-mid);color:var(--sage);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
+.add-btn:hover{background:var(--sage-light)}
+
+.task{background:var(--white);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;border:1px solid var(--warm-dark);box-shadow:var(--shadow);transition:all .15s;position:relative;animation:fadeIn .25s ease}
+.task:hover{box-shadow:var(--shadow-hover)}
+.task-name{font-size:13px;color:var(--text);margin-bottom:6px;line-height:1.4;padding-right:20px}
+.task-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.task-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:500}
+.tag-cal{background:var(--blue-light);color:var(--blue)}
+.tag-mail{background:var(--red-light);color:var(--red)}
+.tag-drive{background:var(--green-light);color:var(--green)}
+.tag-voice{background:var(--purple-light);color:var(--purple)}
+.tag-urgent{background:var(--red-light);color:var(--red);border:1px solid #f5d0cc}
+.task-due{font-size:10px;color:var(--text-muted);white-space:nowrap}
+.del-btn{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:4px;background:var(--red-light);border:none;color:var(--red);font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.task:hover .del-btn{display:flex}
+
+.add-form{background:var(--white);border-radius:var(--radius);padding:10px 12px;border:1px dashed var(--sage-mid);margin-bottom:8px}
+.add-form input,.add-form select{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 8px;border:1px solid var(--warm-dark);border-radius:6px;background:var(--warm);color:var(--text);margin-bottom:6px;outline:none}
+.add-form input:focus,.add-form select:focus{border-color:var(--sage-mid)}
+.form-btns{display:flex;gap:6px}
+.btn-save{padding:5px 12px;border-radius:6px;background:var(--sage);color:white;border:none;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
+.btn-save:hover{background:#4a6859}
+.btn-cancel{padding:5px 10px;border-radius:6px;background:none;color:var(--text-muted);border:1px solid var(--warm-dark);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer}
+
+#toast{position:fixed;bottom:24px;right:24px;padding:10px 16px;background:var(--text);color:white;border-radius:var(--radius);font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}
+#toast.show{opacity:1}
+
+@media(max-width:600px){.app{padding:1rem 1rem 3rem}.board{grid-template-columns:1fr}header{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- Login Screen -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <h2>Practice Workflow</h2>
+    <p>Sign in with Google to load and save your task board to Google Drive. Your data stays in your own Drive account.</p>
+    <button class="google-btn" onclick="signIn()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Sign in with Google
+    </button>
+  </div>
+  <p class="login-note">Your tasks are saved as a single file in your Google Drive. Nothing is stored on any external server.</p>
+</div>
+
+<!-- Main App -->
+<div id="app-screen" style="display:none">
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>Practice Workflow</h1>
+          <p id="date-str"></p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="ws-links">
+          <a class="ws-btn cal" href="https://calendar.google.com" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Calendar
+          </a>
+          <a class="ws-btn mail" href="https://mail.google.com" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Gmail
+          </a>
+          <a class="ws-btn drive" href="https://drive.google.com" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Drive
+          </a>
+          <a class="ws-btn voice" href="https://voice.google.com" target="_blank">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>Voice
+          </a>
+        </div>
+        <div class="user-chip" id="user-chip">
+          <div class="user-avatar-fallback" id="user-avatar-fallback">?</div>
+          <span id="user-name">Loading…</span>
+          <button class="signout-btn" onclick="signOut()">Sign out</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="status-bar">
+      <div class="sdot" id="sdot"></div>
+      <span id="slabel">Connecting…</span>
+    </div>
+
+    <div class="metrics" id="metrics"></div>
+    <div class="sec" style="margin-bottom:10px">Today's sessions</div>
+    <div class="sessions-row" id="sessions"></div>
+    <div class="sec" style="margin-bottom:10px;margin-top:.25rem">Task board</div>
+    <div class="board" id="board"></div>
+  </div>
+</div>
+
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script>
+const CLIENT_ID = '676419249693-1jj7nmj1ug1angbuh190er9a7d7rli0a.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const FILE_NAME = 'practice-workflow-data.json';
+
+let accessToken = null;
+let driveFileId = null;
+let tasks = [];
+let addingIn = null;
+let saveTimer = null;
+
+const COLUMNS = ['inbox','progress','waiting','done'];
+const COL_LABELS = {inbox:'Inbox',progress:'In progress',waiting:'Waiting on',done:'Done'};
+const SESSIONS = [
+  {time:'9:00 AM',client:'A. Mitchell',status:'done'},
+  {time:'11:00 AM',client:'J. Rivera',status:'now'},
+  {time:'2:00 PM',client:'T. Okonkwo',status:'next'},
+  {time:'4:00 PM',client:'S. Huang',status:'next'},
+];
+const DEMO_TASKS = [
+  {id:uid(),name:'Return voicemail — B. Walsh',column:'inbox',tags:['voice','urgent'],due:today(),created:''},
+  {id:uid(),name:'Review referral from Dr. Patel',column:'inbox',tags:['mail'],due:today(),created:''},
+  {id:uid(),name:'Schedule consult — new client',column:'inbox',tags:['cal'],due:today(),created:''},
+  {id:uid(),name:'Update treatment plan — J. Rivera',column:'progress',tags:['drive','urgent'],due:today(),created:''},
+  {id:uid(),name:'Draft monthly progress report',column:'progress',tags:['drive'],due:today(),created:''},
+  {id:uid(),name:'Reply to insurance query',column:'progress',tags:['mail'],due:today(),created:''},
+  {id:uid(),name:'Awaiting signed consent — new client',column:'waiting',tags:['mail'],due:today(),created:''},
+  {id:uid(),name:'Insurance auth — T. Okonkwo',column:'waiting',tags:['mail'],due:today(),created:''},
+  {id:uid(),name:'Session notes — A. Mitchell',column:'done',tags:['drive'],due:today(),created:''},
+  {id:uid(),name:'Google Voice follow-up logged',column:'done',tags:['voice'],due:today(),created:''},
+];
+
+// ── Helpers ──
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function today(){return new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function setSyncState(state,msg){
+  document.getElementById('sdot').className='sdot '+state;
+  document.getElementById('slabel').textContent=msg;
+}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── OAuth / Sign-in ──
+function signIn(){
+  const client = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: SCOPES,
+    callback: async (response) => {
+      if(response.error){toast('Sign-in failed: '+response.error);return;}
+      accessToken = response.access_token;
+      await fetchUserInfo();
+      showApp();
+      await loadFromDrive();
+    },
+  });
+  client.requestAccessToken();
+}
+
+function signOut(){
+  google.accounts.oauth2.revoke(accessToken, ()=>{});
+  accessToken = null;
+  driveFileId = null;
+  tasks = [];
+  document.getElementById('app-screen').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+}
+
+async function fetchUserInfo(){
+  try {
+    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{
+      headers:{Authorization:'Bearer '+accessToken}
+    });
+    const u = await r.json();
+    document.getElementById('user-name').textContent = u.given_name || u.name || 'Signed in';
+    const fallback = document.getElementById('user-avatar-fallback');
+    fallback.textContent = (u.given_name||u.name||'?')[0].toUpperCase();
+  } catch(e){}
+}
+
+function showApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app-screen').style.display='block';
+  document.getElementById('date-str').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  setSyncState('busy','Connecting to Google Drive…');
+}
+
+// ── Drive API ──
+async function driveRequest(url, options={}){
+  const r = await fetch(url, {
+    ...options,
+    headers:{Authorization:'Bearer '+accessToken, ...(options.headers||{})}
+  });
+  if(!r.ok){
+    const err = await r.text();
+    throw new Error('Drive API error '+r.status+': '+err);
+  }
+  return r;
+}
+
+async function findDriveFile(){
+  const q = encodeURIComponent(`name='${FILE_NAME}' and trashed=false`);
+  const r = await driveRequest(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)&spaces=drive`);
+  const data = await r.json();
+  return data.files && data.files.length > 0 ? data.files[0].id : null;
+}
+
+async function readDriveFile(fileId){
+  const r = await driveRequest(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
+  return r.json();
+}
+
+async function createDriveFile(content){
+  const meta = JSON.stringify({name: FILE_NAME, mimeType:'application/json'});
+  const body = JSON.stringify(content);
+  const boundary = 'pw_boundary_xyz';
+  const multipart = `--${boundary}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${boundary}--`;
+  const r = await driveRequest(
+    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
+    {method:'POST', headers:{'Content-Type':`multipart/related; boundary=${boundary}`}, body: multipart}
+  );
+  const data = await r.json();
+  return data.id;
+}
+
+async function updateDriveFile(fileId, content){
+  await driveRequest(
+    `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`,
+    {method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(content)}
+  );
+}
+
+async function loadFromDrive(){
+  try {
+    setSyncState('busy','Loading from Google Drive…');
+    driveFileId = await findDriveFile();
+    if(driveFileId){
+      const data = await readDriveFile(driveFileId);
+      tasks = Array.isArray(data.tasks) ? data.tasks : DEMO_TASKS;
+      setSyncState('ok','Loaded from Google Drive · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+    } else {
+      tasks = DEMO_TASKS;
+      driveFileId = await createDriveFile({tasks, version:1});
+      setSyncState('ok','New file created in Google Drive');
+    }
+    render();
+  } catch(e){
+    console.error(e);
+    setSyncState('err','Could not reach Google Drive');
+    toast('Drive error: '+e.message);
+    tasks = DEMO_TASKS;
+    render();
+  }
+}
+
+async function saveToDrive(){
+  if(!accessToken){return;}
+  setSyncState('busy','Saving to Google Drive…');
+  try {
+    if(driveFileId){
+      await updateDriveFile(driveFileId, {tasks, version:1});
+    } else {
+      driveFileId = await createDriveFile({tasks, version:1});
+    }
+    setSyncState('ok','Saved to Google Drive · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  } catch(e){
+    console.error(e);
+    setSyncState('err','Save failed — '+e.message);
+    toast('Could not save to Drive');
+  }
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveToDrive, 800);
+}
+
+// ── Render ──
+function renderMetrics(){
+  const open=tasks.filter(t=>t.column!=='done').length;
+  const urgent=tasks.filter(t=>t.tags.includes('urgent')).length;
+  const done=tasks.filter(t=>t.column==='done').length;
+  const waiting=tasks.filter(t=>t.column==='waiting').length;
+  document.getElementById('metrics').innerHTML=[
+    {label:'Sessions today',val:SESSIONS.length,sub:SESSIONS.filter(s=>s.status==='done').length+' completed'},
+    {label:'Open tasks',val:open,sub:urgent+' urgent'},
+    {label:'Completed',val:done,sub:'this week'},
+    {label:'Waiting on',val:waiting,sub:'clients or insurance'},
+  ].map(m=>`<div class="metric">
+    <div class="metric-label">${m.label}</div>
+    <div class="metric-val">${m.val}</div>
+    <div class="metric-sub">${m.sub}</div>
+  </div>`).join('');
+}
+
+function renderSessions(){
+  const dc={now:'pulse now',next:'pulse next',done:'pulse done'};
+  const lbl={now:'Now',next:'Upcoming',done:'Completed'};
+  document.getElementById('sessions').innerHTML=SESSIONS.map(s=>`
+    <div class="sc">
+      <div class="sc-time"><span class="${dc[s.status]}"></span>&nbsp;${s.time} · ${lbl[s.status]}</div>
+      <div class="sc-client">${s.client}</div>
+      <div class="sc-acts">
+        <a class="sa" href="https://calendar.google.com" target="_blank">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Cal
+        </a>
+        <a class="sa" href="https://drive.google.com" target="_blank">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Notes
+        </a>
+        <a class="sa" href="https://voice.google.com" target="_blank">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>Voice
+        </a>
+      </div>
+    </div>`).join('');
+}
+
+function tagEl(t){
+  const map={cal:'tag-cal',mail:'tag-mail',drive:'tag-drive',voice:'tag-voice',urgent:'tag-urgent'};
+  const lbl={cal:'Calendar',mail:'Gmail',drive:'Drive',voice:'Voice',urgent:'Urgent'};
+  return map[t]?`<span class="tag ${map[t]}">${lbl[t]}</span>`:'';
+}
+
+function renderBoard(){
+  document.getElementById('board').innerHTML=COLUMNS.map(colId=>{
+    const colTasks=tasks.filter(t=>t.column===colId);
+    const form=addingIn===colId?`<div class="add-form">
+      <input type="text" id="inp-${colId}" placeholder="Task name…" onkeydown="if(event.key==='Enter')saveTask('${colId}')">
+      <select id="tag-${colId}">
+        <option value="">No tag</option>
+        <option value="cal">Calendar</option>
+        <option value="mail">Gmail</option>
+        <option value="drive">Drive</option>
+        <option value="voice">Voice</option>
+        <option value="urgent">Urgent</option>
+      </select>
+      <div class="form-btns">
+        <button class="btn-save" onclick="saveTask('${colId}')">Add task</button>
+        <button class="btn-cancel" onclick="cancelAdd()">Cancel</button>
+      </div>
+    </div>`:'';
+    const taskHtml=colTasks.map(t=>`<div class="task">
+      <button class="del-btn" onclick="deleteTask('${t.id}')">✕</button>
+      <div class="task-name">${esc(t.name)}</div>
+      <div class="task-foot">
+        <div class="task-tags">${t.tags.map(tagEl).join('')}</div>
+        <span class="task-due">${t.due}</span>
+      </div>
+    </div>`).join('');
+    return `<div class="col">
+      <div class="col-head">
+        <span class="col-title">${COL_LABELS[colId]}</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="col-badge">${colTasks.length}</span>
+          <button class="add-btn" onclick="startAdd('${colId}')">+</button>
+        </div>
+      </div>
+      ${form}${taskHtml}
+    </div>`;
+  }).join('');
+  if(addingIn){const i=document.getElementById(`inp-${addingIn}`);if(i)i.focus();}
+}
+
+function render(){renderMetrics();renderSessions();renderBoard();}
+
+// ── Actions ──
+function startAdd(colId){addingIn=colId;renderBoard();}
+function cancelAdd(){addingIn=null;renderBoard();}
+
+async function saveTask(colId){
+  const inp=document.getElementById(`inp-${colId}`);
+  const tagSel=document.getElementById(`tag-${colId}`);
+  const name=inp?inp.value.trim():'';
+  if(!name)return;
+  const tag=tagSel?tagSel.value:'';
+  tasks.unshift({id:uid(),name,column:colId,tags:tag?[tag]:[],due:today(),created:new Date().toISOString()});
+  addingIn=null;
+  render();
+  scheduleSave();
+  toast('Task added');
+}
+
+async function deleteTask(id){
+  tasks=tasks.filter(t=>t.id!==id);
+  render();
+  scheduleSave();
+  toast('Task deleted');
+}
+</script>
+</body>
+</html>
