@@ -24,133 +24,185 @@
 body{font-family:'DM Sans',sans-serif;background:var(--warm);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(46,125,82,.4)}70%{box-shadow:0 0 0 6px rgba(46,125,82,0)}100%{box-shadow:0 0 0 0 rgba(46,125,82,0)}}
 
-/* ── Login screen ── */
-#login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;padding:2rem;animation:fadeIn .5s ease}
-.login-card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--warm-dark);box-shadow:var(--shadow);padding:2.5rem 2rem;max-width:380px;width:100%;text-align:center}
-.login-icon{width:56px;height:56px;background:var(--sage);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
-.login-icon svg{width:28px;height:28px;fill:white}
-.login-card h2{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;margin-bottom:8px}
-.login-card p{font-size:13px;color:var(--text-muted);margin-bottom:1.75rem;line-height:1.6}
-.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 16px;border-radius:8px;border:1px solid var(--warm-dark);background:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;box-shadow:var(--shadow)}
+/* ── Screens ── */
+.screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;animation:fadeIn .4s ease}
+.card{background:var(--white);border-radius:var(--radius-lg);border:1px solid var(--warm-dark);box-shadow:var(--shadow);padding:2.25rem 2rem;max-width:420px;width:100%}
+.card-icon{width:52px;height:52px;background:var(--sage);border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem}
+.card-icon svg{width:26px;height:26px;fill:white}
+.card h2{font-family:'DM Serif Display',serif;font-size:21px;font-weight:400;text-align:center;margin-bottom:6px}
+.card p{font-size:13px;color:var(--text-muted);text-align:center;margin-bottom:1.5rem;line-height:1.6}
+.google-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:11px 16px;border-radius:8px;border:1px solid var(--warm-dark);background:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--text);cursor:pointer;transition:all .15s;box-shadow:var(--shadow);margin-bottom:12px}
 .google-btn:hover{background:var(--warm);box-shadow:var(--shadow-hover)}
 .google-btn svg{width:18px;height:18px;flex-shrink:0}
-.login-note{font-size:11px;color:var(--text-muted);text-align:center;max-width:320px}
+.screen-note{font-size:11px;color:var(--text-muted);text-align:center;max-width:340px;margin-top:16px;line-height:1.6}
+
+/* Setup screen */
+.setup-options{display:flex;flex-direction:column;gap:10px;margin-bottom:0}
+.opt-btn{display:flex;flex-direction:column;align-items:flex-start;padding:14px 16px;border-radius:var(--radius);border:1px solid var(--warm-dark);background:var(--warm);cursor:pointer;text-align:left;transition:all .15s;font-family:'DM Sans',sans-serif;width:100%}
+.opt-btn:hover{border-color:var(--sage-mid);background:var(--sage-light)}
+.opt-btn.selected{border-color:var(--sage);background:var(--sage-light)}
+.opt-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px}
+.opt-desc{font-size:11px;color:var(--text-muted)}
+.join-input{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:8px 10px;border:1px solid var(--warm-dark);border-radius:var(--radius);background:var(--warm);color:var(--text);outline:none;margin-top:10px}
+.join-input:focus{border-color:var(--sage-mid)}
+.join-hint{font-size:11px;color:var(--text-muted);margin-top:6px}
+.action-btn{width:100%;padding:10px;border-radius:8px;background:var(--sage);color:white;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;margin-top:14px;transition:background .15s}
+.action-btn:hover{background:#4a6859}
+.action-btn:disabled{opacity:.5;cursor:not-allowed}
+.divider{display:flex;align-items:center;gap:10px;margin:16px 0;color:var(--text-muted);font-size:11px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--warm-dark)}
 
 /* ── App ── */
 .app{max-width:1100px;margin:0 auto;padding:2rem 1.5rem 4rem}
-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;animation:fadeIn .4s ease}
+header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem;animation:fadeIn .4s ease}
 .brand{display:flex;align-items:center;gap:12px}
-.brand-icon{width:42px;height:42px;background:var(--sage);border-radius:12px;display:flex;align-items:center;justify-content:center}
-.brand-icon svg{width:22px;height:22px;fill:white}
-.brand-text h1{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;color:var(--text)}
-.brand-text p{font-size:12px;color:var(--text-muted);margin-top:1px}
-.header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.ws-links{display:flex;gap:8px;flex-wrap:wrap}
-.ws-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s;border:1px solid transparent}
+.brand-icon{width:40px;height:40px;background:var(--sage);border-radius:11px;display:flex;align-items:center;justify-content:center}
+.brand-icon svg{width:20px;height:20px;fill:white}
+.brand-text h1{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400}
+.brand-text p{font-size:11px;color:var(--text-muted);margin-top:1px}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ws-links{display:flex;gap:6px;flex-wrap:wrap}
+.ws-btn{display:flex;align-items:center;gap:5px;padding:6px 11px;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;text-decoration:none;transition:all .15s;border:1px solid transparent}
 .ws-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
 .ws-btn.cal{background:var(--blue-light);color:var(--blue);border-color:#c5dff2}
 .ws-btn.mail{background:var(--red-light);color:var(--red);border-color:#f5d0cc}
 .ws-btn.drive{background:var(--green-light);color:var(--green);border-color:#c0e0cf}
 .ws-btn.voice{background:var(--purple-light);color:var(--purple);border-color:#d8ccf0}
-.ws-btn svg{width:14px;height:14px;flex-shrink:0}
-.user-chip{display:flex;align-items:center;gap:8px;padding:5px 10px 5px 5px;border-radius:20px;background:var(--white);border:1px solid var(--warm-dark);font-size:12px;color:var(--text-mid)}
-.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover}
-.user-avatar-fallback{width:26px;height:26px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:white}
-.signout-btn{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;padding:0;margin-left:4px}
+.ws-btn svg{width:12px;height:12px;flex-shrink:0}
+.user-chip{display:flex;align-items:center;gap:7px;padding:4px 10px 4px 4px;border-radius:20px;background:var(--white);border:1px solid var(--warm-dark);font-size:12px;color:var(--text-mid)}
+.avatar{width:24px;height:24px;border-radius:50%;background:var(--sage);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;flex-shrink:0}
+.signout-btn{background:none;border:none;font-size:11px;color:var(--text-muted);cursor:pointer;padding:0;margin-left:2px}
 .signout-btn:hover{color:var(--red)}
 
-.status-bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--white);border-radius:var(--radius);border:1px solid var(--warm-dark);margin-bottom:1.5rem;font-size:12px;color:var(--text-muted);animation:fadeIn .4s ease .05s both}
+.status-bar{display:flex;align-items:center;gap:8px;padding:8px 13px;background:var(--white);border-radius:var(--radius);border:1px solid var(--warm-dark);margin-bottom:1.5rem;font-size:12px;color:var(--text-muted);animation:fadeIn .4s ease .05s both}
 .sdot{width:7px;height:7px;border-radius:50%;background:var(--text-muted);flex-shrink:0;transition:background .3s}
 .sdot.ok{background:var(--green)}
 .sdot.busy{background:var(--amber);animation:spin .8s linear infinite;border-radius:0;clip-path:polygon(50% 0%,100% 100%,0% 100%)}
 .sdot.err{background:var(--red)}
+.share-btn{margin-left:auto;display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;border:1px solid var(--sage-mid);background:var(--sage-light);color:var(--sage);font-size:11px;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif}
+.share-btn:hover{background:var(--sage);color:white}
+.share-btn svg{width:11px;height:11px}
 
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.75rem;animation:fadeIn .4s ease .1s both}
-.metric{background:var(--white);border-radius:var(--radius-lg);padding:1.1rem 1.25rem;box-shadow:var(--shadow);border:1px solid var(--warm-dark)}
-.metric-label{font-size:11px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
-.metric-val{font-family:'DM Serif Display',serif;font-size:28px;color:var(--text);line-height:1}
-.metric-sub{font-size:11px;color:var(--text-muted);margin-top:4px}
+/* Share modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,40,32,.35);display:flex;align-items:center;justify-content:center;z-index:300;padding:1rem;animation:fadeIn .15s ease}
+.modal{background:var(--white);border-radius:var(--radius-lg);padding:1.75rem;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.modal h3{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;margin-bottom:8px}
+.modal p{font-size:12px;color:var(--text-muted);margin-bottom:14px;line-height:1.6}
+.file-id-box{display:flex;align-items:center;gap:8px;background:var(--warm);border:1px solid var(--warm-dark);border-radius:var(--radius);padding:10px 12px;font-size:12px;font-family:monospace;color:var(--text);word-break:break-all;margin-bottom:14px}
+.copy-btn{flex-shrink:0;padding:5px 10px;border-radius:6px;background:var(--sage);color:white;border:none;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.copy-btn:hover{background:#4a6859}
+.modal-close{width:100%;padding:9px;border-radius:8px;background:var(--warm);border:1px solid var(--warm-dark);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text-mid);cursor:pointer}
+.modal-close:hover{background:var(--warm-dark)}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:11px;margin-bottom:1.75rem;animation:fadeIn .4s ease .1s both}
+.metric{background:var(--white);border-radius:var(--radius-lg);padding:1rem 1.1rem;box-shadow:var(--shadow);border:1px solid var(--warm-dark)}
+.metric-label{font-size:10px;color:var(--text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
+.metric-val{font-family:'DM Serif Display',serif;font-size:26px;color:var(--text);line-height:1}
+.metric-sub{font-size:10px;color:var(--text-muted);margin-top:3px}
 
 .sec{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
-.sec::before{content:'';display:inline-block;width:3px;height:12px;background:var(--sage);border-radius:2px}
+.sec::before{content:'';display:inline-block;width:3px;height:11px;background:var(--sage);border-radius:2px}
 
-.sessions-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:2rem;animation:fadeIn .4s ease .15s both}
-.sc{background:var(--white);border-radius:var(--radius);padding:12px 14px;border:1px solid var(--warm-dark);box-shadow:var(--shadow)}
+.sessions-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-bottom:2rem;animation:fadeIn .4s ease .15s both}
+.sc{background:var(--white);border-radius:var(--radius);padding:11px 13px;border:1px solid var(--warm-dark);box-shadow:var(--shadow)}
 .sc-time{font-size:11px;color:var(--text-muted);margin-bottom:2px;display:flex;align-items:center;gap:5px}
-.sc-client{font-size:14px;font-weight:500;color:var(--text);margin-bottom:8px}
+.sc-client{font-size:13px;font-weight:500;color:var(--text);margin-bottom:7px}
 .sc-acts{display:flex;gap:5px}
-.sa{font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--warm-dark);background:var(--warm);color:var(--text-mid);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:3px;transition:all .1s}
+.sa{font-size:10px;padding:3px 7px;border-radius:5px;border:1px solid var(--warm-dark);background:var(--warm);color:var(--text-mid);cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:3px;transition:all .1s}
 .sa:hover{background:var(--sage-light);border-color:var(--sage-mid);color:var(--sage)}
 .pulse{display:inline-block;width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.pulse.now{background:var(--green);box-shadow:0 0 0 3px rgba(46,125,82,.2)}
+.pulse.now{background:var(--green);animation:pulse-ring 1.5s infinite}
 .pulse.next{background:var(--blue)}
 .pulse.done{background:var(--text-muted)}
 
-.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;animation:fadeIn .4s ease .2s both}
-.col{background:var(--warm-dark);border-radius:var(--radius-lg);padding:14px;min-height:180px}
-.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.col-title{font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--text-mid)}
-.col-badge{font-size:11px;background:var(--white);border-radius:10px;padding:1px 8px;color:var(--text-muted);border:1px solid var(--warm-dark)}
-.add-btn{width:24px;height:24px;border-radius:6px;background:none;border:1px solid var(--sage-mid);color:var(--sage);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .15s}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;animation:fadeIn .4s ease .2s both}
+.col{background:var(--warm-dark);border-radius:var(--radius-lg);padding:13px;min-height:160px}
+.col-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}
+.col-title{font-size:10px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mid)}
+.col-badge{font-size:10px;background:var(--white);border-radius:10px;padding:1px 7px;color:var(--text-muted);border:1px solid var(--warm-dark)}
+.add-btn{width:22px;height:22px;border-radius:5px;background:none;border:1px solid var(--sage-mid);color:var(--sage);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;line-height:1;transition:all .15s}
 .add-btn:hover{background:var(--sage-light)}
 
-.task{background:var(--white);border-radius:var(--radius);padding:10px 12px;margin-bottom:8px;border:1px solid var(--warm-dark);box-shadow:var(--shadow);transition:all .15s;position:relative;animation:fadeIn .25s ease}
+.task{background:var(--white);border-radius:var(--radius);padding:9px 11px;margin-bottom:7px;border:1px solid var(--warm-dark);box-shadow:var(--shadow);transition:all .15s;position:relative;animation:fadeIn .2s ease}
 .task:hover{box-shadow:var(--shadow-hover)}
-.task-name{font-size:13px;color:var(--text);margin-bottom:6px;line-height:1.4;padding-right:20px}
-.task-foot{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.task-tags{display:flex;gap:4px;flex-wrap:wrap}
-.tag{font-size:10px;padding:2px 7px;border-radius:5px;font-weight:500}
+.task-name{font-size:12px;color:var(--text);margin-bottom:5px;line-height:1.4;padding-right:18px}
+.task-foot{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.task-tags{display:flex;gap:3px;flex-wrap:wrap}
+.tag{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:500}
 .tag-cal{background:var(--blue-light);color:var(--blue)}
 .tag-mail{background:var(--red-light);color:var(--red)}
 .tag-drive{background:var(--green-light);color:var(--green)}
 .tag-voice{background:var(--purple-light);color:var(--purple)}
 .tag-urgent{background:var(--red-light);color:var(--red);border:1px solid #f5d0cc}
-.task-due{font-size:10px;color:var(--text-muted);white-space:nowrap}
-.del-btn{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:4px;background:var(--red-light);border:none;color:var(--red);font-size:11px;cursor:pointer;display:none;align-items:center;justify-content:center}
+.task-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.task-due{font-size:9px;color:var(--text-muted);white-space:nowrap}
+.task-by{font-size:9px;color:var(--text-muted);white-space:nowrap;font-style:italic}
+.del-btn{position:absolute;top:7px;right:7px;width:16px;height:16px;border-radius:3px;background:var(--red-light);border:none;color:var(--red);font-size:10px;cursor:pointer;display:none;align-items:center;justify-content:center}
 .task:hover .del-btn{display:flex}
 
-.add-form{background:var(--white);border-radius:var(--radius);padding:10px 12px;border:1px dashed var(--sage-mid);margin-bottom:8px}
-.add-form input,.add-form select{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 8px;border:1px solid var(--warm-dark);border-radius:6px;background:var(--warm);color:var(--text);margin-bottom:6px;outline:none}
+.add-form{background:var(--white);border-radius:var(--radius);padding:9px 11px;border:1px dashed var(--sage-mid);margin-bottom:7px}
+.add-form input,.add-form select{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 8px;border:1px solid var(--warm-dark);border-radius:6px;background:var(--warm);color:var(--text);margin-bottom:5px;outline:none}
 .add-form input:focus,.add-form select:focus{border-color:var(--sage-mid)}
-.form-btns{display:flex;gap:6px}
-.btn-save{padding:5px 12px;border-radius:6px;background:var(--sage);color:white;border:none;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
+.form-btns{display:flex;gap:5px}
+.btn-save{padding:5px 11px;border-radius:6px;background:var(--sage);color:white;border:none;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
 .btn-save:hover{background:#4a6859}
-.btn-cancel{padding:5px 10px;border-radius:6px;background:none;color:var(--text-muted);border:1px solid var(--warm-dark);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer}
+.btn-cancel{padding:5px 9px;border-radius:6px;background:none;color:var(--text-muted);border:1px solid var(--warm-dark);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer}
 
-#toast{position:fixed;bottom:24px;right:24px;padding:10px 16px;background:var(--text);color:white;border-radius:var(--radius);font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:200}
+#toast{position:fixed;bottom:24px;right:24px;padding:10px 16px;background:var(--text);color:white;border-radius:var(--radius);font-size:12px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:400}
 #toast.show{opacity:1}
 
-@media(max-width:600px){.app{padding:1rem 1rem 3rem}.board{grid-template-columns:1fr}header{flex-direction:column}}
+@media(max-width:620px){.app{padding:1rem 1rem 3rem}.board{grid-template-columns:1fr}header{flex-direction:column}.ws-links{display:none}}
 </style>
 </head>
 <body>
-
 <div id="toast"></div>
 
-<!-- Login Screen -->
-<div id="login-screen">
-  <div class="login-card">
-    <div class="login-icon">
+<!-- ── Screen 1: Sign in ── -->
+<div id="screen-signin" class="screen">
+  <div class="card">
+    <div class="card-icon">
       <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
     </div>
     <h2>Practice Workflow</h2>
-    <p>Sign in with Google to load and save your task board to Google Drive. Your data stays in your own Drive account.</p>
+    <p>Sign in with your Google Workspace account to continue.</p>
     <button class="google-btn" onclick="signIn()">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-      </svg>
+      <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.47 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
       Sign in with Google
     </button>
   </div>
-  <p class="login-note">Your tasks are saved as a single file in your Google Drive. Nothing is stored on any external server.</p>
+  <p class="screen-note">Your data is stored in Google Drive and never on any external server.</p>
 </div>
 
-<!-- Main App -->
-<div id="app-screen" style="display:none">
+<!-- ── Screen 2: Setup (new user) ── -->
+<div id="screen-setup" class="screen" style="display:none">
+  <div class="card">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402z"/></svg>
+    </div>
+    <h2>Set up your board</h2>
+    <p>Welcome, <strong id="setup-name"></strong>. Choose how you'd like to use Practice Workflow.</p>
+    <div class="setup-options">
+      <button class="opt-btn selected" id="opt-new" onclick="selectOpt('new')">
+        <span class="opt-title">Create a new shared board</span>
+        <span class="opt-desc">Start fresh. You'll get a Board ID to share with colleagues.</span>
+      </button>
+      <button class="opt-btn" id="opt-join" onclick="selectOpt('join')">
+        <span class="opt-title">Join an existing board</span>
+        <span class="opt-desc">Your admin or colleague will give you a Board ID to enter below.</span>
+      </button>
+    </div>
+    <div id="join-area" style="display:none">
+      <input class="join-input" id="join-file-id" placeholder="Paste Board ID here…">
+      <p class="join-hint">The Board ID looks like: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</p>
+    </div>
+    <button class="action-btn" id="setup-go-btn" onclick="setupGo()">Continue</button>
+  </div>
+</div>
+
+<!-- ── Screen 3: Main app ── -->
+<div id="screen-app" style="display:none">
   <div class="app">
     <header>
       <div class="brand">
@@ -177,9 +229,9 @@ header{display:flex;align-items:flex-start;justify-content:space-between;margin-
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg>Voice
           </a>
         </div>
-        <div class="user-chip" id="user-chip">
-          <div class="user-avatar-fallback" id="user-avatar-fallback">?</div>
-          <span id="user-name">Loading…</span>
+        <div class="user-chip">
+          <div class="avatar" id="user-avatar">?</div>
+          <span id="user-name-chip">…</span>
           <button class="signout-btn" onclick="signOut()">Sign out</button>
         </div>
       </div>
@@ -187,7 +239,11 @@ header{display:flex;align-items:flex-start;justify-content:space-between;margin-
 
     <div class="status-bar">
       <div class="sdot" id="sdot"></div>
-      <span id="slabel">Connecting…</span>
+      <span id="slabel">Loading…</span>
+      <button class="share-btn" onclick="showShareModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        Share Board ID
+      </button>
     </div>
 
     <div class="metrics" id="metrics"></div>
@@ -198,211 +254,267 @@ header{display:flex;align-items:flex-start;justify-content:space-between;margin-
   </div>
 </div>
 
-<!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+<!-- Share Modal -->
+<div id="share-modal" class="modal-overlay" style="display:none" onclick="if(event.target===this)hideShareModal()">
+  <div class="modal">
+    <h3>Share this board</h3>
+    <p>Give this Board ID to any colleague. They paste it into "Join an existing board" when they first sign in. Then share the Drive file with their email so they can write to it.</p>
+    <div class="file-id-box">
+      <span id="modal-file-id" style="flex:1"></span>
+      <button class="copy-btn" onclick="copyFileId()">Copy</button>
+    </div>
+    <p style="margin-bottom:14px"><strong>Also share the Drive file:</strong><br>
+    Open <a href="https://drive.google.com" target="_blank" style="color:var(--sage)">Google Drive</a>, find <code>practice-workflow-data.json</code>, right-click → Share → add each colleague's email as Editor.</p>
+    <button class="modal-close" onclick="hideShareModal()">Done</button>
+  </div>
+</div>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 const CLIENT_ID = '676419249693-1jj7nmj1ug1angbuh190er9a7d7rli0a.apps.googleusercontent.com';
-const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+const SCOPES    = 'https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/userinfo.profile';
 const FILE_NAME = 'practice-workflow-data.json';
+const LS_KEY    = 'pw_file_id';
 
 let accessToken = null;
 let driveFileId = null;
-let tasks = [];
-let addingIn = null;
-let saveTimer = null;
+let tasks       = [];
+let addingIn    = null;
+let saveTimer   = null;
+let currentUser = {name:'', initials:''};
+let setupMode   = 'new'; // 'new' | 'join'
 
-const COLUMNS = ['inbox','progress','waiting','done'];
+const COLUMNS    = ['inbox','progress','waiting','done'];
 const COL_LABELS = {inbox:'Inbox',progress:'In progress',waiting:'Waiting on',done:'Done'};
-const SESSIONS = [
-  {time:'9:00 AM',client:'A. Mitchell',status:'done'},
-  {time:'11:00 AM',client:'J. Rivera',status:'now'},
-  {time:'2:00 PM',client:'T. Okonkwo',status:'next'},
-  {time:'4:00 PM',client:'S. Huang',status:'next'},
-];
-const DEMO_TASKS = [
-  {id:uid(),name:'Return voicemail — B. Walsh',column:'inbox',tags:['voice','urgent'],due:today(),created:''},
-  {id:uid(),name:'Review referral from Dr. Patel',column:'inbox',tags:['mail'],due:today(),created:''},
-  {id:uid(),name:'Schedule consult — new client',column:'inbox',tags:['cal'],due:today(),created:''},
-  {id:uid(),name:'Update treatment plan — J. Rivera',column:'progress',tags:['drive','urgent'],due:today(),created:''},
-  {id:uid(),name:'Draft monthly progress report',column:'progress',tags:['drive'],due:today(),created:''},
-  {id:uid(),name:'Reply to insurance query',column:'progress',tags:['mail'],due:today(),created:''},
-  {id:uid(),name:'Awaiting signed consent — new client',column:'waiting',tags:['mail'],due:today(),created:''},
-  {id:uid(),name:'Insurance auth — T. Okonkwo',column:'waiting',tags:['mail'],due:today(),created:''},
-  {id:uid(),name:'Session notes — A. Mitchell',column:'done',tags:['drive'],due:today(),created:''},
-  {id:uid(),name:'Google Voice follow-up logged',column:'done',tags:['voice'],due:today(),created:''},
+const SESSIONS   = [
+  {time:'9:00 AM', client:'A. Mitchell', status:'done'},
+  {time:'11:00 AM',client:'J. Rivera',   status:'now'},
+  {time:'2:00 PM', client:'T. Okonkwo',  status:'next'},
+  {time:'4:00 PM', client:'S. Huang',    status:'next'},
 ];
 
 // ── Helpers ──
-function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function today(){return new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'})}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-function setSyncState(state,msg){
-  document.getElementById('sdot').className='sdot '+state;
-  document.getElementById('slabel').textContent=msg;
-}
-function toast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+function uid()   { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function today() { return new Date().toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
+function esc(s)  { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function show(id)  { document.getElementById(id).style.display=''; }
+function hide(id)  { document.getElementById(id).style.display='none'; }
+function showOnly(id) {
+  ['screen-signin','screen-setup','screen-app'].forEach(s => document.getElementById(s).style.display = s===id ? 'flex' : 'none');
+  if(id==='screen-app') document.getElementById(id).style.display='block';
 }
 
-// ── OAuth / Sign-in ──
-function signIn(){
+function setSyncState(state, msg) {
+  document.getElementById('sdot').className = 'sdot '+state;
+  document.getElementById('slabel').textContent = msg;
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ── OAuth ──
+function signIn() {
   const client = google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
-    callback: async (response) => {
-      if(response.error){toast('Sign-in failed: '+response.error);return;}
-      accessToken = response.access_token;
+    callback: async (res) => {
+      if (res.error) { toast('Sign-in failed: '+res.error); return; }
+      accessToken = res.access_token;
       await fetchUserInfo();
-      showApp();
-      await loadFromDrive();
+      // Check if user already has a saved file id
+      const savedId = localStorage.getItem(LS_KEY);
+      if (savedId) {
+        driveFileId = savedId;
+        showOnly('screen-app');
+        initApp();
+        await loadFromDrive();
+      } else {
+        showOnly('screen-setup');
+      }
     },
   });
   client.requestAccessToken();
 }
 
-function signOut(){
-  google.accounts.oauth2.revoke(accessToken, ()=>{});
-  accessToken = null;
-  driveFileId = null;
-  tasks = [];
-  document.getElementById('app-screen').style.display='none';
-  document.getElementById('login-screen').style.display='flex';
+function signOut() {
+  if (accessToken) google.accounts.oauth2.revoke(accessToken, ()=>{});
+  accessToken = null; driveFileId = null; tasks = [];
+  // Don't clear localStorage so file id is remembered next time
+  showOnly('screen-signin');
 }
 
-async function fetchUserInfo(){
+async function fetchUserInfo() {
   try {
-    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo',{
-      headers:{Authorization:'Bearer '+accessToken}
-    });
+    const r = await fetch('https://www.googleapis.com/oauth2/v3/userinfo',
+      { headers: { Authorization: 'Bearer '+accessToken } });
     const u = await r.json();
-    document.getElementById('user-name').textContent = u.given_name || u.name || 'Signed in';
-    const fallback = document.getElementById('user-avatar-fallback');
-    fallback.textContent = (u.given_name||u.name||'?')[0].toUpperCase();
-  } catch(e){}
+    const name = u.given_name || u.name || 'User';
+    currentUser = { name, initials: name[0].toUpperCase() };
+    document.getElementById('setup-name').textContent = name;
+    document.getElementById('user-name-chip').textContent = name;
+    document.getElementById('user-avatar').textContent = currentUser.initials;
+  } catch(e) {}
 }
 
-function showApp(){
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('app-screen').style.display='block';
-  document.getElementById('date-str').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
-  setSyncState('busy','Connecting to Google Drive…');
+// ── Setup screen ──
+function selectOpt(mode) {
+  setupMode = mode;
+  document.getElementById('opt-new').classList.toggle('selected', mode==='new');
+  document.getElementById('opt-join').classList.toggle('selected', mode==='join');
+  document.getElementById('join-area').style.display = mode==='join' ? 'block' : 'none';
+  document.getElementById('setup-go-btn').textContent = mode==='new' ? 'Create board' : 'Join board';
+}
+
+async function setupGo() {
+  const btn = document.getElementById('setup-go-btn');
+  btn.disabled = true;
+  if (setupMode === 'new') {
+    showOnly('screen-app');
+    initApp();
+    tasks = makeDemoTasks();
+    render();
+    setSyncState('busy', 'Creating board in Google Drive…');
+    try {
+      driveFileId = await createDriveFile({ tasks, version:1 });
+      localStorage.setItem(LS_KEY, driveFileId);
+      setSyncState('ok', 'Board created · share your Board ID with colleagues');
+      toast('Board created! Click "Share Board ID" to invite others.');
+    } catch(e) {
+      setSyncState('err', 'Could not create Drive file: '+e.message);
+    }
+  } else {
+    const inputId = document.getElementById('join-file-id').value.trim();
+    if (!inputId) { toast('Paste a Board ID first'); btn.disabled=false; return; }
+    driveFileId = inputId;
+    localStorage.setItem(LS_KEY, driveFileId);
+    showOnly('screen-app');
+    initApp();
+    await loadFromDrive();
+  }
+  btn.disabled = false;
+}
+
+function makeDemoTasks() {
+  return [
+    {id:uid(),name:'Return voicemail — B. Walsh',    column:'inbox',   tags:['voice','urgent'],due:today(),by:'',created:''},
+    {id:uid(),name:'Review referral from Dr. Patel', column:'inbox',   tags:['mail'],           due:today(),by:'',created:''},
+    {id:uid(),name:'Schedule consult — new client',  column:'inbox',   tags:['cal'],            due:today(),by:'',created:''},
+    {id:uid(),name:'Update treatment plan — J. Rivera',column:'progress',tags:['drive','urgent'],due:today(),by:'',created:''},
+    {id:uid(),name:'Draft monthly progress report',  column:'progress',tags:['drive'],           due:today(),by:'',created:''},
+    {id:uid(),name:'Reply to insurance query',       column:'progress',tags:['mail'],            due:today(),by:'',created:''},
+    {id:uid(),name:'Awaiting signed consent — new client',column:'waiting',tags:['mail'],        due:today(),by:'',created:''},
+    {id:uid(),name:'Insurance auth — T. Okonkwo',   column:'waiting', tags:['mail'],            due:today(),by:'',created:''},
+    {id:uid(),name:'Session notes — A. Mitchell',   column:'done',    tags:['drive'],           due:today(),by:'',created:''},
+    {id:uid(),name:'Voice follow-up logged',         column:'done',    tags:['voice'],           due:today(),by:'',created:''},
+  ];
 }
 
 // ── Drive API ──
-async function driveRequest(url, options={}){
+async function driveReq(url, opts={}) {
   const r = await fetch(url, {
-    ...options,
-    headers:{Authorization:'Bearer '+accessToken, ...(options.headers||{})}
+    ...opts,
+    headers: { Authorization:'Bearer '+accessToken, ...(opts.headers||{}) }
   });
-  if(!r.ok){
-    const err = await r.text();
-    throw new Error('Drive API error '+r.status+': '+err);
-  }
+  if (!r.ok) throw new Error('Drive '+r.status+': '+(await r.text()));
   return r;
 }
 
-async function findDriveFile(){
-  const q = encodeURIComponent(`name='${FILE_NAME}' and trashed=false`);
-  const r = await driveRequest(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name)&spaces=drive`);
-  const data = await r.json();
-  return data.files && data.files.length > 0 ? data.files[0].id : null;
-}
-
-async function readDriveFile(fileId){
-  const r = await driveRequest(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
+async function readDriveFile(fileId) {
+  const r = await driveReq(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
   return r.json();
 }
 
-async function createDriveFile(content){
-  const meta = JSON.stringify({name: FILE_NAME, mimeType:'application/json'});
+async function createDriveFile(content) {
+  const meta = JSON.stringify({name:FILE_NAME, mimeType:'application/json'});
   const body = JSON.stringify(content);
-  const boundary = 'pw_boundary_xyz';
-  const multipart = `--${boundary}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${boundary}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${boundary}--`;
-  const r = await driveRequest(
+  const b = 'pw_bound';
+  const mp = `--${b}\r\nContent-Type: application/json\r\n\r\n${meta}\r\n--${b}\r\nContent-Type: application/json\r\n\r\n${body}\r\n--${b}--`;
+  const r = await driveReq(
     'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',
-    {method:'POST', headers:{'Content-Type':`multipart/related; boundary=${boundary}`}, body: multipart}
+    { method:'POST', headers:{'Content-Type':`multipart/related; boundary=${b}`}, body: mp }
   );
-  const data = await r.json();
-  return data.id;
+  const d = await r.json();
+  return d.id;
 }
 
-async function updateDriveFile(fileId, content){
-  await driveRequest(
+async function updateDriveFile(fileId, content) {
+  await driveReq(
     `https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`,
-    {method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(content)}
+    { method:'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify(content) }
   );
 }
 
-async function loadFromDrive(){
+async function loadFromDrive() {
+  setSyncState('busy', 'Loading from Google Drive…');
   try {
-    setSyncState('busy','Loading from Google Drive…');
-    driveFileId = await findDriveFile();
-    if(driveFileId){
-      const data = await readDriveFile(driveFileId);
-      tasks = Array.isArray(data.tasks) ? data.tasks : DEMO_TASKS;
-      setSyncState('ok','Loaded from Google Drive · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
-    } else {
-      tasks = DEMO_TASKS;
-      driveFileId = await createDriveFile({tasks, version:1});
-      setSyncState('ok','New file created in Google Drive');
-    }
+    const data = await readDriveFile(driveFileId);
+    tasks = Array.isArray(data.tasks) ? data.tasks : makeDemoTasks();
     render();
-  } catch(e){
+    setSyncState('ok', 'Synced · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  } catch(e) {
     console.error(e);
-    setSyncState('err','Could not reach Google Drive');
-    toast('Drive error: '+e.message);
-    tasks = DEMO_TASKS;
-    render();
+    setSyncState('err', 'Could not load board — check the Board ID and Drive sharing');
+    toast('Load error: '+e.message);
   }
 }
 
-async function saveToDrive(){
-  if(!accessToken){return;}
-  setSyncState('busy','Saving to Google Drive…');
+async function saveToDrive() {
+  if (!accessToken || !driveFileId) return;
+  setSyncState('busy', 'Saving…');
   try {
-    if(driveFileId){
-      await updateDriveFile(driveFileId, {tasks, version:1});
-    } else {
-      driveFileId = await createDriveFile({tasks, version:1});
-    }
-    setSyncState('ok','Saved to Google Drive · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
-  } catch(e){
-    console.error(e);
-    setSyncState('err','Save failed — '+e.message);
-    toast('Could not save to Drive');
+    await updateDriveFile(driveFileId, { tasks, version:1, lastSaved: new Date().toISOString() });
+    setSyncState('ok', 'Saved · '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}));
+  } catch(e) {
+    setSyncState('err', 'Save failed — '+e.message);
+    toast('Could not save');
   }
 }
 
-function scheduleSave(){
+function scheduleSave() {
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveToDrive, 800);
+  saveTimer = setTimeout(saveToDrive, 900);
+}
+
+// Auto-refresh every 30s so all users see latest changes
+setInterval(() => {
+  if (driveFileId && accessToken && document.getElementById('screen-app').style.display !== 'none') {
+    loadFromDrive();
+  }
+}, 30000);
+
+// ── Init app ──
+function initApp() {
+  document.getElementById('date-str').textContent =
+    new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  renderSessions();
+  setSyncState('busy', 'Connecting…');
 }
 
 // ── Render ──
-function renderMetrics(){
-  const open=tasks.filter(t=>t.column!=='done').length;
-  const urgent=tasks.filter(t=>t.tags.includes('urgent')).length;
-  const done=tasks.filter(t=>t.column==='done').length;
-  const waiting=tasks.filter(t=>t.column==='waiting').length;
-  document.getElementById('metrics').innerHTML=[
-    {label:'Sessions today',val:SESSIONS.length,sub:SESSIONS.filter(s=>s.status==='done').length+' completed'},
-    {label:'Open tasks',val:open,sub:urgent+' urgent'},
-    {label:'Completed',val:done,sub:'this week'},
-    {label:'Waiting on',val:waiting,sub:'clients or insurance'},
-  ].map(m=>`<div class="metric">
+function renderMetrics() {
+  const open    = tasks.filter(t => t.column !== 'done').length;
+  const urgent  = tasks.filter(t => t.tags && t.tags.includes('urgent')).length;
+  const done    = tasks.filter(t => t.column === 'done').length;
+  const waiting = tasks.filter(t => t.column === 'waiting').length;
+  document.getElementById('metrics').innerHTML = [
+    {label:'Sessions today', val:SESSIONS.length,   sub:SESSIONS.filter(s=>s.status==='done').length+' completed'},
+    {label:'Open tasks',     val:open,               sub:urgent+' urgent'},
+    {label:'Completed',      val:done,               sub:'this week'},
+    {label:'Waiting on',     val:waiting,            sub:'clients or insurance'},
+  ].map(m => `<div class="metric">
     <div class="metric-label">${m.label}</div>
     <div class="metric-val">${m.val}</div>
     <div class="metric-sub">${m.sub}</div>
   </div>`).join('');
 }
 
-function renderSessions(){
-  const dc={now:'pulse now',next:'pulse next',done:'pulse done'};
-  const lbl={now:'Now',next:'Upcoming',done:'Completed'};
-  document.getElementById('sessions').innerHTML=SESSIONS.map(s=>`
+function renderSessions() {
+  const dc  = {now:'pulse now', next:'pulse next', done:'pulse done'};
+  const lbl = {now:'Now', next:'Upcoming', done:'Completed'};
+  document.getElementById('sessions').innerHTML = SESSIONS.map(s => `
     <div class="sc">
       <div class="sc-time"><span class="${dc[s.status]}"></span>&nbsp;${s.time} · ${lbl[s.status]}</div>
       <div class="sc-client">${s.client}</div>
@@ -420,16 +532,16 @@ function renderSessions(){
     </div>`).join('');
 }
 
-function tagEl(t){
-  const map={cal:'tag-cal',mail:'tag-mail',drive:'tag-drive',voice:'tag-voice',urgent:'tag-urgent'};
-  const lbl={cal:'Calendar',mail:'Gmail',drive:'Drive',voice:'Voice',urgent:'Urgent'};
-  return map[t]?`<span class="tag ${map[t]}">${lbl[t]}</span>`:'';
+function tagEl(t) {
+  const map = {cal:'tag-cal',mail:'tag-mail',drive:'tag-drive',voice:'tag-voice',urgent:'tag-urgent'};
+  const lbl = {cal:'Calendar',mail:'Gmail',drive:'Drive',voice:'Voice',urgent:'Urgent'};
+  return map[t] ? `<span class="tag ${map[t]}">${lbl[t]}</span>` : '';
 }
 
-function renderBoard(){
-  document.getElementById('board').innerHTML=COLUMNS.map(colId=>{
-    const colTasks=tasks.filter(t=>t.column===colId);
-    const form=addingIn===colId?`<div class="add-form">
+function renderBoard() {
+  document.getElementById('board').innerHTML = COLUMNS.map(colId => {
+    const colTasks = tasks.filter(t => t.column === colId);
+    const form = addingIn === colId ? `<div class="add-form">
       <input type="text" id="inp-${colId}" placeholder="Task name…" onkeydown="if(event.key==='Enter')saveTask('${colId}')">
       <select id="tag-${colId}">
         <option value="">No tag</option>
@@ -443,13 +555,16 @@ function renderBoard(){
         <button class="btn-save" onclick="saveTask('${colId}')">Add task</button>
         <button class="btn-cancel" onclick="cancelAdd()">Cancel</button>
       </div>
-    </div>`:'';
-    const taskHtml=colTasks.map(t=>`<div class="task">
+    </div>` : '';
+    const taskHtml = colTasks.map(t => `<div class="task">
       <button class="del-btn" onclick="deleteTask('${t.id}')">✕</button>
       <div class="task-name">${esc(t.name)}</div>
       <div class="task-foot">
-        <div class="task-tags">${t.tags.map(tagEl).join('')}</div>
-        <span class="task-due">${t.due}</span>
+        <div class="task-tags">${(t.tags||[]).map(tagEl).join('')}</div>
+        <div class="task-meta">
+          <span class="task-due">${t.due||''}</span>
+          ${t.by ? `<span class="task-by">${esc(t.by)}</span>` : ''}
+        </div>
       </div>
     </div>`).join('');
     return `<div class="col">
@@ -463,33 +578,49 @@ function renderBoard(){
       ${form}${taskHtml}
     </div>`;
   }).join('');
-  if(addingIn){const i=document.getElementById(`inp-${addingIn}`);if(i)i.focus();}
+  if (addingIn) { const i = document.getElementById(`inp-${addingIn}`); if(i) i.focus(); }
 }
 
-function render(){renderMetrics();renderSessions();renderBoard();}
+function render() { renderMetrics(); renderBoard(); }
 
 // ── Actions ──
-function startAdd(colId){addingIn=colId;renderBoard();}
-function cancelAdd(){addingIn=null;renderBoard();}
+function startAdd(colId) { addingIn = colId; renderBoard(); }
+function cancelAdd()     { addingIn = null;  renderBoard(); }
 
-async function saveTask(colId){
-  const inp=document.getElementById(`inp-${colId}`);
-  const tagSel=document.getElementById(`tag-${colId}`);
-  const name=inp?inp.value.trim():'';
-  if(!name)return;
-  const tag=tagSel?tagSel.value:'';
-  tasks.unshift({id:uid(),name,column:colId,tags:tag?[tag]:[],due:today(),created:new Date().toISOString()});
-  addingIn=null;
+async function saveTask(colId) {
+  const inp    = document.getElementById(`inp-${colId}`);
+  const tagSel = document.getElementById(`tag-${colId}`);
+  const name   = inp ? inp.value.trim() : '';
+  if (!name) return;
+  const tag = tagSel ? tagSel.value : '';
+  tasks.unshift({
+    id: uid(), name, column: colId,
+    tags: tag ? [tag] : [],
+    due: today(),
+    by: currentUser.name,
+    created: new Date().toISOString()
+  });
+  addingIn = null;
   render();
   scheduleSave();
   toast('Task added');
 }
 
-async function deleteTask(id){
-  tasks=tasks.filter(t=>t.id!==id);
+async function deleteTask(id) {
+  tasks = tasks.filter(t => t.id !== id);
   render();
   scheduleSave();
   toast('Task deleted');
+}
+
+// ── Share modal ──
+function showShareModal() {
+  document.getElementById('modal-file-id').textContent = driveFileId || '(not set)';
+  show('share-modal');
+}
+function hideShareModal() { hide('share-modal'); }
+function copyFileId() {
+  navigator.clipboard.writeText(driveFileId||'').then(() => toast('Board ID copied!'));
 }
 </script>
 </body>
